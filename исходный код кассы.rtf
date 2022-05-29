@@ -1,0 +1,483 @@
+{\rtf1\ansi\ansicpg1251\cocoartf2638
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\froman\fcharset0 TimesNewRomanPSMT;\f1\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;\red0\green0\blue0;}
+{\*\expandedcolortbl;;\cssrgb\c0\c0\c0;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww11520\viewh8400\viewkind0
+\deftab720
+\pard\pardeftab720\sa213\partightenfactor0
+
+\f0\fs29\fsmilli14667 \cf2 \expnd0\expndtw0\kerning0
+from tkinter import *
+\f1 \
+
+\f0 import time
+\f1 \
+
+\f0 from datetime import datetime
+\f1 \
+
+\f0 import json
+\f1 \
+
+\f0 import copy
+\f1 \
+
+\f0 \'a0
+\f1 \
+
+\f0 root = Tk()\'a0 # initializing window component
+\f1 \
+
+\f0 root.geometry("800x800")\'a0 # dimensions
+\f1 \
+
+\f0 root.title("\uc0\u1050 \u1072 \u1089 \u1089 \u1072 ")\'a0 # title bar
+\f1 \
+
+\f0 \'a0
+\f1 \
+
+\f0 \'a0
+\f1 \
+
+\f0 Top = Frame(root, width=1600)
+\f1 \
+
+\f0 Top.pack(side=TOP)
+\f1 \
+
+\f0 body = Frame(root, width=1600, height=700, relief=SUNKEN)
+\f1 \
+
+\f0 body.pack(side=LEFT)
+\f1 \
+
+\f0 \'a0
+\f1 \
+
+\f0 recipe_time = time.time()
+\f1 \
+
+\f0 \'a0
+\f1 \
+
+\f0 \'a0
+\f1 \
+
+\f0 lblLogo = Label(Top, bitmap="logo.png", bd=0, anchor='center',)
+\f1 \
+
+\f0 lblLogo.grid(row=0, column=0)\'a0 # app label
+\f1 \
+
+\f0 lblError = Label(Top, font=('arial', 20, 'bold'), text='', fg="Red", bd=10, anchor='w')
+\f1 \
+
+\f0 lblError.grid(row=2, column=0)
+\f1 \
+
+\f0 \'a0
+\f1 \
+
+\f0 \'a0
+\f1 \
+
+\f0 f_read = open("meals.JSON", "r")
+\f1 \
+
+\f0 meals = json.loads(f_read.read())
+\f1 \
+
+\f0 f_read.close()
+\f1 \
+
+\f0 counter = 0
+\f1 \
+
+\f0 for index, i in meals.items():
+\f1 \
+
+\f0 \'a0\'a0\'a0 if index.isdigit():
+\f1 \
+
+\f0 \'a0\'a0\'a0\'a0\'a0\'a0\'a0 if counter < 4:
+\f1 \
+
+\f0 \'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0 \'a0\'a0meal = Label(body, font=('arial', 18, 'bold'), text=f"\{i[0]\} - \{i[1]\}", bd=16, anchor="w", padx=10)
+\f1 \
+
+\f0 \'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0 meal.grid(row=int(index), column=4)
+\f1 \
+
+\f0 \'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0 txt = Entry(body, font=('arial', 18), bd=10, width=5, justify='left')
+\f1 \
+
+\f0 \'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0 txt.grid(row=int(index), column=5)
+\f1 \
+
+\f0 \'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0 meals[index].append(txt)
+\f1 \
+
+\f0 \'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0 meals[index].append('')
+\f1 \
+
+\f0 \'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0 counter += 1
+\f1 \
+
+\f0 \'a0\'a0\'a0\'a0\'a0\'a0\'a0 else:
+\f1 \
+
+\f0 \'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0 meal = Label(body, font=('arial', 18, 'bold'), text=f"\{i[0]\} - \{i[1]\}", bd=16, anchor="w", padx=10)
+\f1 \
+
+\f0 \'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0 meal.grid(row=int(index)-4, column=6)
+\f1 \
+
+\f0 \'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0 txt = Entry(body, font=('arial', 18), bd=10, width=5, justify='right')
+\f1 \
+
+\f0 \'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0 \'a0txt.grid(row=int(index)-4, column=7)
+\f1 \
+
+\f0 \'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0 meals[index].append(txt)
+\f1 \
+
+\f0 \'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0 meals[index].append('')
+\f1 \
+
+\f0 \'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0 counter += 1
+\f1 \
+
+\f0 \'a0\'a0\'a0 else:
+\f1 \
+
+\f0 \'a0\'a0\'a0\'a0\'a0\'a0\'a0 continue
+\f1 \
+
+\f0 \'a0
+\f1 \
+
+\f0 \'a0
+\f1 \
+
+\f0 def input_check():
+\f1 \
+
+\f0 \'a0\'a0\'a0 for index, i in meals.items():
+\f1 \
+
+\f0 \'a0\'a0\'a0\'a0\'a0\'a0\'a0 if index.isdigit():
+\f1 \
+
+\f0 \'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0 \'a0\'a0\'a0i[3] = str(i[2].get())
+\f1 \
+
+\f0 \'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0 if not i[3].isdigit():
+\f1 \
+
+\f0 \'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0 if i[3] == '':
+\f1 \
+
+\f0 \'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0 i[3] = 0
+\f1 \
+
+\f0 \'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0 else:
+\f1 \
+
+\f0 \'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0 lblError.config(text="Invalid")
+\f1 \
+
+\f0 \'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0 return False
+\f1 \
+
+\f0 \'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0 else:
+\f1 \
+
+\f0 \'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0 \'a0\'a0\'a0\'a0\'a0\'a0continue
+\f1 \
+
+\f0 \'a0\'a0\'a0\'a0\'a0\'a0\'a0 for k in meals.values():
+\f1 \
+
+\f0 \'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0 print(k)
+\f1 \
+
+\f0 \'a0\'a0\'a0 return True
+\f1 \
+
+\f0 \'a0
+\f1 \
+
+\f0 \'a0
+\f1 \
+
+\f0 def get_recipe():
+\f1 \
+
+\f0 \'a0\'a0\'a0 global recipe_time
+\f1 \
+
+\f0 \'a0\'a0\'a0 if input_check():
+\f1 \
+
+\f0 \'a0\'a0\'a0\'a0\'a0\'a0\'a0 lblError.config(text="")
+\f1 \
+
+\f0 \'a0
+\f1 \
+
+\f0 \'a0\'a0\'a0\'a0\'a0\'a0\'a0 recipe_window = Toplevel(root)
+\f1 \
+
+\f0 \'a0\'a0\'a0\'a0\'a0\'a0\'a0 recipe_window.geometry("500x600")
+\f1 \
+
+\f0 \'a0\'a0\'a0\'a0\'a0\'a0\'a0 recipe_window.title("\uc0\u1063 \u1077 \u1082 ")
+\f1 \
+
+\f0 \'a0
+\f1 \
+
+\f0 \'a0\'a0\'a0\'a0\'a0\'a0\'a0 top_recipe = Frame(recipe_window, width=500)
+\f1 \
+
+\f0 \'a0\'a0\'a0\'a0\'a0\'a0\'a0 top_recipe.pack(side=TOP)
+\f1 \
+
+\f0 \'a0
+\f1 \
+
+\f0 \'a0\'a0\'a0\'a0\'a0\'a0\'a0 body_recipe = Frame(recipe_window, width=500, height=6000)
+\f1 \
+
+\f0 \'a0\'a0\'a0\'a0\'a0\'a0\'a0 body_recipe.pack(side=LEFT)
+\f1 \
+
+\f0 \'a0
+\f1 \
+
+\f0 \'a0\'a0\'a0\'a0\'a0\'a0\'a0 logo_recipe = Label(top_recipe, bitmap="recipelogo.png", anchor='center')
+\f1 \
+
+\f0 \'a0\'a0\'a0\'a0\'a0\'a0\'a0 logo_recipe.grid(row=0, column=0)
+\f1 \
+
+\f0 \'a0
+\f1 \
+
+\f0 \'a0\'a0\'a0\'a0\'a0\'a0\'a0 f_recipe_change = open('meals.JSON', 'r')
+\f1 \
+
+\f0 \'a0\'a0\'a0\'a0\'a0\'a0\'a0 temp = json.loads(f_recipe_change.read())
+\f1 \
+
+\f0 \'a0\'a0\'a0\'a0\'a0\'a0\'a0 f_recipe_change.close()
+\f1 \
+
+\f0 \'a0
+\f1 \
+
+\f0 \'a0\'a0\'a0\'a0\'a0\'a0\'a0 recipe_time = int(time.time())
+\f1 \
+
+\f0 \'a0\'a0\'a0\'a0\'a0\'a0\'a0 temp['recipe_number'] = f"\{(int(temp['recipe_number']) + 1):09\}"
+\f1 \
+
+\f0 \'a0
+\f1 \
+
+\f0 \'a0\'a0\'a0\'a0\'a0\'a0\'a0 info_recipe = Label(top_recipe, font=('arial', 13), bd=10, anchor='center',
+\f1 \
+
+\f0 \'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0 text=f"\uc0\u1063 \u1077 \u1082  No \{int(temp['recipe_number']):09\} \u1086 \u1090  \{datetime.fromtimestamp(recipe_time)\}")
+\f1 \
+
+\f0 \'a0\'a0\'a0\'a0\'a0\'a0\'a0 info_recipe.grid(row=1, column=0)
+\f1 \
+
+\f0 \'a0
+\f1 \
+
+\f0 \'a0\'a0\'a0\'a0\'a0\'a0\'a0 f_recipe_change = open('meals.JSON', 'w')
+\f1 \
+
+\f0 \'a0\'a0\'a0\'a0\'a0\'a0\'a0 f_recipe_change.write(json.dumps(temp, indent=4))
+\f1 \
+
+\f0 \'a0\'a0\'a0\'a0\'a0\'a0\'a0 f_recipe_change.close()
+\f1 \
+
+\f0 \'a0\'a0\'a0\'a0\'a0\'a0\'a0 total = 0
+\f1 \
+
+\f0 \'a0
+\f1 \
+
+\f0 \'a0\'a0\'a0\'a0\'a0\'a0\'a0 for index, j in meals.items():
+\f1 \
+
+\f0 \'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0 if index.isdigit():
+\f1 \
+
+\f0 \'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0 total += (int(j[1]) * int(j[3]))
+\f1 \
+
+\f0 \'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0 recipe_list = Label(body_recipe, font=('arial', 13),
+\f1 \
+
+\f0 \'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0 text=f"\{int(index) + 1\}. \{j[0]\}, \{j[3]\}\uc0\u1096 \u1090 .", anchor='w')
+\f1 \
+
+\f0 \'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0 \'a0\'a0\'a0\'a0\'a0\'a0\'a0recipe_list.grid(row=int(index), column=0)
+\f1 \
+
+\f0 \'a0
+\f1 \
+
+\f0 \'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0 recipe_strips = Label(body_recipe, font=('arial', 13),
+\f1 \
+
+\f0 \'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0 text="".ljust(10, "_").rjust(30, "_"), anchor='center')
+\f1 \
+
+\f0 \'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0 recipe_strips.grid(row=int(index), column=1)
+\f1 \
+
+\f0 \'a0
+\f1 \
+
+\f0 \'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0 recipe_price = Label(body_recipe, font=('arial', 13), underline='1',
+\f1 \
+
+\f0 \'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0 fg="Black", text=f"\{int(j[1]) * int(j[3])\} \uc0\u1089 \u1091 \u1084 ", anchor='e')
+\f1 \
+
+\f0 \'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0 recipe_price.grid(row=int(index), column=2)
+\f1 \
+
+\f0 \'a0
+\f1 \
+
+\f0 \'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0 else:
+\f1 \
+
+\f0 \'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0 continue
+\f1 \
+
+\f0 \'a0
+\f1 \
+
+\f0 \'a0\'a0\'a0\'a0\'a0\'a0\'a0 recipe_total = Label(body_recipe, font=('arial', 13),
+\f1 \
+
+\f0 \'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0 text=f"\uc0\u1048 \u1090 \u1086 \u1075 \u1086 : \{total\} \u1089 \u1091 \u1084 ".ljust(10, " "), anchor='e')
+\f1 \
+
+\f0 \'a0\'a0\'a0\'a0\'a0\'a0\'a0 recipe_total.grid(row=len(meals), column=1)
+\f1 \
+
+\f0 \'a0
+\f1 \
+
+\f0 \'a0\'a0\'a0\'a0\'a0\'a0\'a0 recipe_accept = Button(body_recipe, font=('arial', 16, 'bold'),
+\f1 \
+
+\f0 \'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0 padx=40, pady=8, bd=10, width=10, text="\uc0\u1057 \u1086 \u1093 \u1088 \u1072 \u1085 \u1080 \u1090 \u1100 ",
+\f1 \
+
+\f0 \'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0 command=recipe_save)
+\f1 \
+
+\f0 \'a0\'a0\'a0\'a0\'a0\'a0\'a0 recipe_accept.grid(row=(len(meals) + 1), column=1)
+\f1 \
+
+\f0 \'a0
+\f1 \
+
+\f0 def recipe_save():
+\f1 \
+
+\f0 \'a0\'a0\'a0 global meals
+\f1 \
+
+\f0 \'a0\'a0\'a0 f_check_for_recipe_number = open('meals.JSON', 'r')
+\f1 \
+
+\f0 \'a0\'a0\'a0 temp = dict()
+\f1 \
+
+\f0 \'a0\'a0\'a0 for i, _ in meals.items():
+\f1 \
+
+\f0 \'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0 temp.update(\{i: list()\})
+\f1 \
+
+\f0 \'a0\'a0\'a0 for i, j in temp.items():
+\f1 \
+
+\f0 \'a0\'a0\'a0\'a0\'a0\'a0\'a0 temp[i].append(meals[i][0])
+\f1 \
+
+\f0 \'a0\'a0\'a0\'a0\'a0\'a0\'a0 temp[i].append(meals[i][1])
+\f1 \
+
+\f0 \'a0\'a0\'a0\'a0\'a0\'a0\'a0 temp[i].append('')
+\f1 \
+
+\f0 \'a0\'a0\'a0\'a0\'a0\'a0\'a0 temp[i].append(meals[i][3])
+\f1 \
+
+\f0 \'a0\'a0\'a0 recipe = copy.deepcopy(temp)
+\f1 \
+
+\f0 \'a0\'a0\'a0 recipe.update(\{
+\f1 \
+
+\f0 \'a0\'a0\'a0\'a0\'a0\'a0\'a0 "timestamp": recipe_time,
+\f1 \
+
+\f0 \'a0\'a0\'a0\'a0\'a0\'a0\'a0 "recipe_number": json.loads(f_check_for_recipe_number.read())['recipe_number'],
+\f1 \
+
+\f0 \'a0\'a0\'a0 \})
+\f1 \
+
+\f0 \'a0\'a0\'a0 for i, j in recipe.items():
+\f1 \
+
+\f0 \'a0\'a0\'a0\'a0\'a0\'a0\'a0 if i.isdigit():
+\f1 \
+
+\f0 \'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0 recipe[i][2] = ''
+\f1 \
+
+\f0 \'a0\'a0\'a0 f_check_for_recipe_number.close()
+\f1 \
+
+\f0 \'a0\'a0\'a0 f_save = open(f"recipes/\{str(recipe['recipe_number'])\}_"
+\f1 \
+
+\f0 \'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0 f"\{str('').join([i for i in str(datetime.fromtimestamp(recipe_time)) if i.isdigit()])\}.JSON", 'w')
+\f1 \
+
+\f0 \'a0\'a0\'a0 f_save.write(json.dumps(recipe, indent=4))
+\f1 \
+
+\f0 \'a0\'a0\'a0 f_save.close()
+\f1 \
+
+\f0 \'a0
+\f1 \
+
+\f0 button = Button(body,font=('arial', 16, 'bold'), fg='#398158', text="\uc0\u1056 \u1072 \u1089 \u1087 \u1077 \u1095 \u1072 \u1090 \u1072 \u1090 \u1100  \u1095 \u1077 \u1082 ",
+\f1 \
+
+\f0 \'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0 command=get_recipe, pady=25, padx=15).grid(row=7,column=6)
+\f1 \
+
+\f0 \'a0
+\f1 \
+
+\f0 root.mainloop()
+\f1 \
+}
